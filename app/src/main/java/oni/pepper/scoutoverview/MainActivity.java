@@ -1,5 +1,6 @@
 package oni.pepper.scoutoverview;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 import oni.pepper.scoutoverview.requestmanagement.DaggerRequestComponent;
 import oni.pepper.scoutoverview.requestmanagement.HttpRequestService;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Inject
     HttpRequestService requestService;
@@ -28,20 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         DaggerRequestComponent.builder().build().inject(this);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-            StringRequest request = requestService.sendGetRequest("https://www.immobilienscout24.de");
-            queue.add(request);
-        });
+        StringRequest request = requestService.sendGetRequest("https://www.immobilienscout24.de");
+        queue.add(request);
     }
 
     @Override
