@@ -1,5 +1,6 @@
 package oni.pepper.scoutoverview.requestmanagement;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 /**
@@ -15,4 +16,6 @@ public interface HttpRequestService {
      * @return answer of HttpRequest
      */
     StringRequest sendGetRequest(String url);
+
+    JsonObjectRequest sendGetRequestJson(String url);
 }
